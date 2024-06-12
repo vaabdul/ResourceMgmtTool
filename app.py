@@ -31,7 +31,7 @@ class Employee(db.Model):
 
     def check_password(self,password):
         return check_password_hash(self.password,password)
-    
+    # Email functionality
 def send_registration_email(email, name):
     msg = Message('Welcome to RMT', sender='lavakishor86@gmail.com', recipients=[email])
     msg.body = f"Hi {name},\n\nYou have successfully registered in the RM Tool. Click the link below to login:\n\nhttp://localhost:5010/login"
