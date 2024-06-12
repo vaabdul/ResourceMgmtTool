@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resource List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>EMP ID</th>
+                <th>Employee Name</th>
+                <th>Hiring Manager</th>
+                <th>Demand Role</th>
+                <th>Career Role</th>
+                <th>Primary Skills</th>
+                <th>Detail Skill</th>
+                <th>Trained Skill</th>
+                <th>Years of Experience</th>
+                <th>Employee Location</th>
+                <th>Service Line</th>
+                <th>Sub Service Line</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th>Industry Group</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resource in resources %}
+            <tr>
+                <td>{{ resource.id }}</td>
+                <td>{{ resource.emp_id }}</td>
+                <td>{{ resource.employee_name }}</td>
+                <td>{{ get_employee_name(resource.hiring_manager_id) }}</td>
+                <td>{{ resource.demand_role }}</td>
+                <td>{{ resource.career_role }}</td>
+                <td>{{ resource.primary_skills }}</td>
+                <td>{{ resource.detail_skill}}</td>
+                <td>{{ resource.trained_skill }}</td>
+                <td>{{ resource.Years_of_experience }}</td>
+                <td>{{ resource.employee_location }}</td>
+                <td>{{ resource.service_line }}</td>
+                <td>{{ resource.sub_service_line }}</td>
+                <td>{{ resource.region }}</td>
+                <td>{{ resource.country }}</td>
+                <td>{{ resource.industry_group }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

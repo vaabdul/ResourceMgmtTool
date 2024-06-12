@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,jsonify
+from flask import Flask, render_template, request, redirect, url_for,jsonify, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from configparser import ConfigParser
@@ -31,6 +31,26 @@ class Employee(db.Model):
 
     def check_password(self,password):
         return check_password_hash(self.password,password)
+
+class Resource(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    emp_id = db.Column(db.String(100), nullable=False, unique=True)
+    employee_name = db.Column(db.String(100), nullable=False)
+    email_id = db.Column(db.String(100), unique=True, nullable=False)
+    hiring_manager_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+    demand_role = db.Column(db.String(100), nullable=False)
+    career_role = db.Column(db.String(100), nullable=False)
+    primary_skills = db.Column(db.String(100), nullable=False)
+    detail_skill = db.Column(db.Text, nullable=False)
+    trained_skill = db.Column(db.Text, nullable=False)
+    Years_of_experience = db.Column(db.Integer, nullable=False)
+    employee_location = db.Column(db.String(100), nullable=False)
+    service_line = db.Column(db.String(100), nullable=False)
+    sub_service_line = db.Column(db.String(100), nullable=False)
+    region = db.Column(db.String(100), nullable=False)
+    country = db.Column(db.String(100), nullable=False)
+    industry_group = db.Column(db.String(100), nullable=False)
+    
     
 def send_registration_email(email, name):
     msg = Message('Welcome to RMT', sender='lavakishor86@gmail.com', recipients=[email])
@@ -97,6 +117,67 @@ def success():
     email = request.args.get('email')
     position = request.args.get('position')
     return render_template('success.html',name=name,email=email,position=position)
+
+
+
+@app.route('/add_resource', methods=['GET', 'POST'])
+def add_resource():
+    if request.method == 'POST':
+        emp_id = request.form['emp_id']
+        employee_name = request.form['employee_name']
+        print(request.form['hiring_manager_id'])
+        hiring_manager_id = request.form['hiring_manager_id']
+        demand_role = request.form['demand_role']
+        career_role = request.form['career_role']
+        primary_skills = request.form['primary_skills']
+        detail_skill = request.form['detail_skill']
+        trained_skill = request.form['trained_skill']
+        years_of_experience = request.form['years_of_experience']
+        employee_location = request.form['employee_location']
+        service_line = request.form['service_line']
+        sub_service_line = request.form['sub_service_line']
+        region = request.form['region']
+        country = request.form['country']
+        industry_group = request.form['industry_group']
+        new_resource = Resource(
+            emp_id=emp_id,
+            employee_name=employee_name,
+            hiring_manager_id=hiring_manager_id,
+            demand_role=demand_role,
+            career_role=career_role,
+            primary_skills=primary_skills,
+            detail_skill=detail_skill,
+            trained_skill=trained_skill,
+            Years_of_experience=int(years_of_experience),
+            employee_location=employee_location,
+            service_line=service_line,
+            sub_service_line=sub_service_line,
+            region=region,
+            country=country,
+            industry_group=industry_group
+        )
+
+        db.session.add(new_resource)
+        db.session.commit()
+
+        flash('Resource added successfully', 'success')
+        return redirect(url_for('add_resource'))
+
+    managers = Employee.query.filter_by(position='Account Manager').all()
+    return render_template('dashboard.html', managers=managers)
+
+def get_employee_name(employee_id):
+    employee = Employee.query.get(employee_id)
+    if employee:
+        return employee.name
+    else:
+        return "Employee not found"
+
+@app.route('/view_resources')
+def view_resources():
+    resources = Resource.query.all()
+    emp = Employee.query.all()
+    return render_template('resource.html', resources=resources, employees=emp, get_employee_name=get_employee_name)
 
 if __name__ == '__main__':
     with app.app_context():
