@@ -31,26 +31,6 @@ class Employee(db.Model):
 
     def check_password(self,password):
         return check_password_hash(self.password,password)
-
-class Resource(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    emp_id = db.Column(db.String(100), nullable=False, unique=True)
-    employee_name = db.Column(db.String(100), nullable=False)
-    email_id = db.Column(db.String(100), unique=True, nullable=False)
-    hiring_manager_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
-    demand_role = db.Column(db.String(100), nullable=False)
-    career_role = db.Column(db.String(100), nullable=False)
-    primary_skills = db.Column(db.String(100), nullable=False)
-    detail_skill = db.Column(db.Text, nullable=False)
-    trained_skill = db.Column(db.Text, nullable=False)
-    Years_of_experience = db.Column(db.Integer, nullable=False)
-    employee_location = db.Column(db.String(100), nullable=False)
-    service_line = db.Column(db.String(100), nullable=False)
-    sub_service_line = db.Column(db.String(100), nullable=False)
-    region = db.Column(db.String(100), nullable=False)
-    country = db.Column(db.String(100), nullable=False)
-    industry_group = db.Column(db.String(100), nullable=False)
-    
     
 def send_registration_email(email, name):
     msg = Message('Welcome to RMT', sender='lavakishor86@gmail.com', recipients=[email])
