@@ -66,10 +66,8 @@ def register():
         email = request.form['email']
         position = request.form['position']
         password = request.form['password']
-
         # generate password hash
         password_hash = generate_password_hash(password)
-
         new_employee = Employee(name=name, email=email, position=position, password=password_hash)
         db.session.add(new_employee)
         db.session.commit()
