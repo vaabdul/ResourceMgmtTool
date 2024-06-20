@@ -51,6 +51,32 @@ class Resource(db.Model):
     country = db.Column(db.String(100), nullable=False)
     industry_group = db.Column(db.String(100), nullable=False)
     
+class ResourceSecondaryInfo(db.Model):
+    id = db.Column(db.Integer, db.ForeignKey('resource.emp_id'), primary_key=True)
+    experience_level = db.Column(db.String(20), nullable=False)
+    doj = db.Column(db.Date, nullable=False)
+    last_release_date = db.Column(db.Date, nullable=False)
+    last_release_account = db.Column(db.String(100), nullable=False)
+    last_release_industry_group = db.Column(db.String(100), nullable=False)
+    bench_start_date = db.Column(db.Date, nullable=False)
+    aging = db.Column(db.Integer, nullable=False)
+    aging_cluster = db.Column(db.String(20), nullable=False)
+    bench_classification = db.Column(db.String(50), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    sub_category = db.Column(db.String(50), nullable=False)
+    talent_category = db.Column(db.String(50), nullable=False)
+    talent_type = db.Column(db.String(50), nullable=False)
+    relocation = db.Column(db.String(3), nullable=False)
+    tm_spoc_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+    sl_poc_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+    profile_available = db.Column(db.String(3), nullable=False)
+    action_owner = db.Column(db.String(50), nullable=False)
+    wfo = db.Column(db.String(3), nullable=False)
+    assessment_score = db.Column(db.String(10), nullable=False)
+    proficiency_status = db.Column(db.String(50), nullable=False)
+    experience_level_fresher = db.Column(db.String(20), nullable=False)
+    
+    
 def send_registration_email(email, name):
     msg = Message('Welcome to RMT', sender='lavakishor86@gmail.com', recipients=[email])
     msg.body = f"Hi {name},\n\nYou have successfully registered in the RM Tool. Click the link below to login:\n\nhttp://localhost:5010/login"
@@ -162,6 +188,67 @@ def add_resource():
 
     managers = Employee.query.filter_by(position='Account Manager').all()
     return render_template('dashboard.html', managers=managers)
+
+@app.route('/add_secondary_info', methods=['GET', 'POST'])
+def add_secondary_info():
+    if request.method == 'POST':
+        print(request.form)
+        resource_id = request.form['resource_id']
+        experience_level = request.form['experience_level']
+        doj = datetime.strptime(request.form['doj'], '%Y-%m-%d')
+        last_release_date = datetime.strptime(request.form['last_release_date'], '%Y-%m-%d')
+        last_release_account = request.form['last_release_account']
+        last_release_industry_group = request.form['last_release_industry_group']
+        bench_start_date = datetime.strptime(request.form['bench_start_date'], '%Y-%m-%d')
+        aging = (datetime.now() - bench_start_date).days
+        aging_cluster = request.form['aging_cluster']
+        bench_classification = request.form['bench_classification']
+        category = request.form['category']
+        sub_category = request.form['sub_category']
+        talent_category = request.form['talent_category']
+        talent_type = request.form['talent_type']
+        relocation = request.form['relocation']
+        tm_spoc = request.form['tm_spoc']
+        sl_poc = request.form['sl_poc']
+        profile_available = request.form['profile_available']
+        action_owner = request.form['action_owner']
+        wfo = request.form['wfo']
+        assessment_score = request.form['assessment_score']
+        proficiency_status = request.form['proficiency_status']
+        experience_level_fresher = request.form['experience_level_fresher']
+        print(resource_id)
+        secondary_info = ResourceSecondaryInfo(
+            id = resource_id,
+            experience_level=experience_level,
+            doj=doj,
+            last_release_date=last_release_date,
+            last_release_account=last_release_account,
+            last_release_industry_group=last_release_industry_group,
+            bench_start_date=bench_start_date,
+            aging=aging,
+            aging_cluster=aging_cluster,
+            bench_classification=bench_classification,
+            category=category,
+            sub_category=sub_category,
+            talent_category=talent_category,
+            talent_type=talent_type,
+            relocation=relocation,
+            tm_spoc_id=tm_spoc,
+            sl_poc_id=sl_poc,
+            profile_available=profile_available,
+            action_owner=action_owner,
+            wfo=wfo,
+            assessment_score=assessment_score,
+            proficiency_status=proficiency_status,
+            experience_level_fresher=experience_level_fresher
+        )
+        db.session.add(secondary_info)
+        db.session.commit()
+        return redirect('/resources')
+    
+    tm_spocs = Employee.query.filter_by(position='TM SPOC').all()
+    sl_pocs = Employee.query.filter_by(position='SL POC').all()
+    return render_template('add_secondary_info.html', tm_spocs=tm_spocs, sl_pocs=sl_pocs)
 
 def get_employee_name(employee_id):
     employee = Employee.query.get(employee_id)

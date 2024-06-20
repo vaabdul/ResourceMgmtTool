@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Resource Secondary Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+        }
+        form {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Resource Secondary Info</h1>
+    <form method="POST" action="/add_secondary_info">
+        <label for="resource_id">resource_id</label>
+        <input type="number" id="resource_id" placeholder={{resource_id}} name="resource_id" value="{{ resource_id }}" readonly>
+
+        <label for="experience_level">Experience Level</label>
+        <select id="experience_level" name="experience_level">
+            <option value="01-03">01-03</option>
+            <option value="03-06">03-06</option>
+            <option value="06-09">06-09</option>
+            <option value="09-12">09-12</option>
+        </select>
+        
+        <label for="doj">Date of Joining (DOJ)</label>
+        <input type="date" id="doj" name="doj" required>
+
+        <label for="last_release_date">Last Release Date</label>
+        <input type="date" id="last_release_date" name="last_release_date" required>
+
+        <label for="last_release_account">Last Release Account</label>
+        <select id="last_release_account" name="last_release_account">
+            <option value="Airbus">Airbus</option>
+            <option value="American Heart Association">American Heart Association</option>
+            <option value="Aviva">Aviva</option>
+            <option value="Bank Of America">Bank Of America</option>
+            <option value="BCE">BCE</option>
+            <option value="Bendigo and Adelaide Bank">Bendigo and Adelaide Bank</option>
+            <option value="Bendigo Bank">Bendigo Bank</option>
+            <option value="BioStream">BioStream</option>
+            <option value="Boeing">Boeing</option>
+            <option value="Bombardier">Bombardier</option>
+            <option value="Cerberus">Cerberus</option>
+            <option value="Cisco">Cisco</option>
+            <option value="CVS Health">CVS Health</option>
+            <option value="Experian">Experian</option>
+            <option value="FTTH">FTTH</option>
+            <option value="Goeasy">Goeasy</option>
+            <option value="Home Depot">Home Depot</option>
+            <option value="Internal">Internal</option>
+            <option value="Ivanti">Ivanti</option>
+            <option value="Johnson & Johnson">Johnson & Johnson</option>
+            <option value="KBC">KBC</option>
+            <option value="Lululemon">Lululemon</option>
+            <option value="Macquarie">Macquarie</option>
+            <option value="Mars">Mars</option>
+            <option value="McGraw Hill">McGraw Hill</option>
+            <option value="MyEyeDr">MyEyeDr</option>
+            <option value="NEB">NEB</option>
+            <option value="Orchid Orthopedic">Orchid Orthopedic</option>
+            <option value="Pacific Life Insurance">Pacific Life Insurance</option>
+            <option value="Prophix">Prophix</option>
+            <option value="Regeneron Pharmaceuticals">Regeneron Pharmaceuticals</option>
+            <option value="Renault-India">Renault-India</option>
+            <option value="Renault-Nearshore">Renault-Nearshore</option>
+            <option value="Rockwell Automation">Rockwell Automation</option>
+            <option value="Southwest Business Corp">Southwest Business Corp</option>
+            <option value="Synerion">Synerion</option>
+            <option value="Tenneco">Tenneco</option>
+            <option value="Teradata">Teradata</option>
+            <option value="TrustEase">TrustEase</option>
+            <option value="TSSA">TSSA</option>
+            <option value="Twin City Fan And Blower Company">Twin City Fan And Blower Company</option>
+            <option value="United Airlines">United Airlines</option>
+            <option value="Venerable">Venerable</option>
+            <option value="Verizon GE">Verizon GE</option>
+            <option value="Vrize">Vrize</option>
+            <option value="Walmart">Walmart</option>
+            <option value="World Shipping">World Shipping</option>
+            <option value="Valeo">Valeo</option>
+            <option value="Proximus">Proximus</option>
+        </select>
+
+
+        <label for="last_release_industry_group">Last Release Industry Group</label>
+        <select id="last_release_industry_group" name="last_release_industry_group">
+            <option value="Banking, Financial Services and Insurance">Banking, Financial Services and Insurance</option>
+            <option value="Healthcare and Life Science">Healthcare and Life Science</option>
+            <option value="Consumer and Retail">Consumer and Retail</option>
+            <option value="Technology, Media and Telecom">Technology, Media and Telecom</option>
+            <option value="Automotive, Aerospace, Defence, Manufacturing">Automotive, Aerospace, Defence, Manufacturing</option>
+            <option value="Public">Public</option>
+            <option value="Cella">Cella</option>
+        </select>
+
+        <label for="bench_start_date">Bench Start Date</label>
+        <input type="date" id="bench_start_date" name="bench_start_date" required>
+
+        <label for="aging">Aging (Days)</label>
+        <input type="number" id="aging" name="aging" required>
+
+        <label for="aging_cluster">Aging Cluster</label>
+        <select id="aging_cluster" name="aging_cluster">
+            <option value="1-30">1-30</option>
+            <option value="30-60">30-60</option>
+            <option value="60-90">60-90</option>
+            <option value="90 and above">90 and above</option>
+        </select>
+
+        <label for="bench_classification">Bench Classification</label>
+        <select id="bench_classification" name="bench_classification">
+            <option value="Non-deployable">Non-deployable</option>
+            <option value="Deployable">Deployable</option>
+            <option value="Invest">Invest</option>
+        </select>
+
+        <label for="category">Category</label>
+        <select id="category" name="category">
+            <option value="Available Allocation">Available Allocation</option>
+            <option value="Future allocated">Future allocated</option>
+            <option value="Attrition">Attrition</option>
+            <option value="Performance issue">Performance issue</option>
+            <option value="Fake">Fake</option>
+            <option value="Training">Training</option>
+            <option value="Long Leave">Long Leave</option>
+            <option value="Billing">Billing</option>
+            <option value="New">New</option>
+            <option value="Practice Development">Practice Development</option>
+            <option value="30Days">30Days</option>
+            <option value="60Days">60Days</option>
+            <option value="90Days">90Days</option>
+            <option value="Out Of RD">Out Of RD</option>
+            <option value="No Plan">No Plan</option>
+            <option value="180Days">180Days</option>
+        </select>
+
+        <label for="sub_category">Sub Category</label>
+        <select id="sub_category" name="sub_category">
+            <option value="Confirmed">Confirmed</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Pending">Pending</option>
+            <option value="LWD Confirmed">LWD Confirmed</option>
+            <option value="PIP">PIP</option>
+            <option value="Fake">Fake</option>
+            <option value="Planned">Planned</option>
+            <option value="In progress">In progress</option>
+            <option value="Maternity Leave">Maternity Leave</option>
+            <option value="Sabbatical">Sabbatical</option>
+            <option value="Medical Leave">Medical Leave</option>
+            <option value="Validation in progress">Validation in progress</option>
+            <option value="Training">Training</option>
+            <option value="Completed">Completed</option>
+            <option value="No Visibility for next 90 days">No Visibility for next 90 days</option>
+            <option value="Presales">Presales</option>
+            <option value="Delivery">Delivery</option>
+            <option value="Enabling">Enabling</option>
+        </select>
+
+
+        <label for="talent_category">Talent Category</label>
+        <select id="talent_category" name="talent_category">
+            <option value="Billable">Billable</option>
+            <option value="Non billable">Non billable</option>
+        </select>
+
+        <label for="talent_type">Talent Type</label>
+        <select id="talent_type" name="talent_type">
+            <option value="Employee">Employee</option>
+            <option value="Contract">Contract</option>
+            <option value="Intern">Intern</option>
+        </select>
+
+        <label for="relocation">Relocation</label>
+        <select id="relocation" name="relocation">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="tm_spoc">TM SPOC</label>
+        <select id="tm_spoc" name="tm_spoc">
+            {% for employee in tm_spocs %}
+            <option value="{{ employee.id }}">{{ employee.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="sl_poc">SL POC</label>
+        <select id="sl_poc" name="sl_poc">
+            {% for employee in sl_pocs %}
+            <option value="{{ employee.id }}">{{ employee.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="profile_available">Profile Available</label>
+        <select id="profile_available" name="profile_available">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="action_owner">Action Owner</label>
+        <select id="action_owner" name="action_owner">
+            <option value="SL SPOC">SL SPOC</option>
+            <option value="CP">CP</option>
+            <option value="TA">TA</option>
+            <option value="TM">TM</option>
+        </select>
+
+        <label for="wfo">WFO</label>
+        <select id="wfo" name="wfo">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label for="assessment_score">Assessment Score</label>
+        <select id="assessment_score" name="assessment_score">
+            {% for score in range(1, 11) %}
+            <option value="{{ score }}">{{ score }}</option>
+            {% endfor %}
+            <option value="Pending">Pending</option>
+        </select>
+
+        <label for="proficiency_status">Proficiency Status</label>
+        <select id="proficiency_status" name="proficiency_status">
+            <option value="Strong">Strong</option>
+            <option value="Medium">Medium</option>
+            <option value="Need Training">Need Training</option>
+            <option value="Non-Deployable">Non-Deployable</option>
+            <option value="Pending">Pending</option>
+        </select>
+
+        <label for="experience_level_fresher">Experience Level Fresher</label>
+        <select id="experience_level_fresher" name="experience_level_fresher">
+            <option value="01-03">01-03</option>
+            <option value="03-06">03-06</option>
+            <option value="06-09">06-09</option>
+            <option value="09-12">09-12</option>
+            <option value="12-16">12-16</option>
+            <option value="16-19">16-19</option>
+            <option value="19+">19+</option>
+        </select>
+        <button type="submit">Add Secondary Info</button>
+    </form>
+</body>
+</html>
