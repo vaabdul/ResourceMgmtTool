@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Resource</title>
+    <!DOCTYPE html>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Resource</h1>
+        <form method="POST" action="/add_resource">
+            <div class="form-group">
+                <label for="emp_id">EMP ID:</label>
+                <input type="text" id="emp_id" name="emp_id" required>
+            </div>
+            <div class="form-group">
+                <label for="employee_name">Employee Name:</label>
+                <input type="text" id="employee_name" name="employee_name" required>
+            </div>
+            <div class="form-group">
+                <label for="hiring_manager_id">Hiring Manager:</label>
+                <select id="hiring_manager_id" name="hiring_manager_id" required>
+                    {% for manager in managers %}
+                    <option value="{{ manager.id }}">{{ manager.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="demand_role">Demand Role:</label>
+                <select id="demand_role" name="demand_role" required>
+                    <option value="QA Engineer">QA Engineer</option>
+                    <option value="SDET - Lead">SDET - Lead</option>
+                    <option value="Product Development">Product Development</option>
+                    <option value="Associate Project Manager">Associate Project Manager</option>
+                    <option value="Azure Data Analyst">Azure Data Analyst</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="career_role">Career Role:</label>
+                <select id="career_role" name="career_role" required>
+                    <option value="Admin Lead">Admin Lead</option>
+                    <option value="Admin Manager">Admin Manager</option>
+                    <option value="Analyst PMO">Analyst PMO</option>
+                    <option value="Architect">Architect</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="primary_skills">Primary Skills:</label>
+                <select id="primary_skills" name="primary_skills" required>
+                    <option value="open shift">open shift</option>
+                    <option value=".net">.net</option>
+                    <option value="android">android</option>
+                    <option value="angular">angular</option>
+                    <option value="ansible">ansible</option>
+                    <option value="API">API</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="service_line">Service Line:</label>
+                <select id="service_line" name="service_line" required>
+                    <option value="Customer Experience">Customer Experience</option>
+                    <option value="Digital And Product Engineering">Digital And Product Engineering</option>
+                    <option value="Data & Analytics">Data & Analytics</option>
+                    <option value="Cloud & Infrastructure">Cloud & Infrastructure</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sub_service_line">Sub Service Line:</label>
+                <select id="sub_service_line" name="sub_service_line" required>
+                    <option value="CX design and strategy">CX design and strategy</option>
+                    <option value="Digital Marketing and Automation">Digital Marketing and Automation</option>
+                    <option value="UI/UX">UI/UX</option>
+                    <option value="Digital Commerce">Digital Commerce</option>
+                    <option value="CRM & Loyalty">CRM & Loyalty</option>
+                    <option value="Application Development">Application Development</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="region">Region:</label>
+                <select id="region" name="region" required>
+                    <option value="Europe">Europe</option>
+                    <option value="US">US</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Germany">Germany</option>
+                    <option value="India">India</option>
+                    <option value="Romania">Romania</option>
+                    <option value="France">France</option>
+                    <option value="Italy">Italy</option>
+                    <option value="USA">USA</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="industry_group">Industry Group:</label>
+                <select id="industry_group" name="industry_group" required>
+                    <option value="Banking, Financial Services and Insurance">Banking, Financial Services and Insurance</option>
+                    <option value="Healthcare and Life Science">Healthcare and Life Science</option>
+                    <option value="Consumer and Retail">Consumer and Retail</option>
+                    <option value="Technology, Media and Telecom">Technology, Media and Telecom</option>
+                    <option value="Automotive, Aerospace, Defence, Manufacturing">Automotive, Aerospace, Defence, Manufacturing</option>
+                    <option value="Public">Public</option>
+                    <option value="Cella">Cella</option>
+                </select>
+            </div>
+            <label for="detail_skill">Detail Skill:</label><br>
+        <input type="text" id="detail_skill" name="detail_skill"><br>
+
+        <label for="trained_skill">Trained Skill:</label><br>
+        <input type="text" id="trained_skill" name="trained_skill"><br>
+
+        <label for="years_of_experience">Years of Experience:</label><br>
+        <input type="number" id="years_of_experience" name="years_of_experience"><br>
+
+        <label for="last_release_date">Last Release Date:</label><br>
+        <input type="date" id="last_release_date" name="last_release_date"><br>
+
+        <label for="last_release_account">Last Release Account:</label><br>
+        <input type="text" id="last_release_account" name="last_release_account"><br>
+
+        <label for="last_release_ig">Last Release IG:</label><br>
+        <select id="last_release_ig" name="last_release_ig">
+            <option value="Banking">Banking</option>
+            <option value="Financial Services and Insurance">Financial Services and Insurance</option>
+            <option value="Healthcare and Life Science">Healthcare and Life Science</option>
+            <option value="Consumer and Retail">Consumer and Retail</option>
+            <option value="Technology">Technology</option>
+            <option value="Media and Telecom">Media and Telecom</option>
+            <option value="Automotive">Automotive</option>
+            <option value="Aerospace">Aerospace</option>
+            <option value="Defence">Defence</option>
+            <option value="Manufacturing">Manufacturing</option>
+        </select><br>
+
+        <label for="bench_start_date">Bench Start Date:</label><br>
+        <input type="date" id="bench_start_date" name="bench_start_date"><br>
+
+        <label for="bench_classification">Bench Classification:</label><br>
+        <select id="bench_classification" name="bench_classification">
+            <option value="Deployable">Deployable</option>
+            <option value="Non-Deployable">Non-Deployable</option>
+        </select><br>
+
+        <label for="category">Category:</label><br>
+        <select id="category" name="category">
+            <option value="billing">Billing</option>
+            <option value="performance">Performance</option>
+            <option value="NO plan">NO Plan</option>
+        </select><br>
+
+        <label for="sub_category">Sub-category:</label><br>
+        <select id="sub_category" name="sub_category">
+            <option value="completed">Completed</option>
+            <option value="PIP">PIP</option>
+            <option value="No Visibility for next 90 days">No Visibility for next 90 days</option>
+        </select><br>
+
+        <label for="talent_category">Talent Category:</label><br>
+        <select id="talent_category" name="talent_category">
+            <option value="billable">Billable</option>
+            <option value="non-billable">Non-Billable</option>
+        </select><br>
+
+        <label for="employee_location">Employee Location:</label><br>
+        <select id="employee_location" name="employee_location">
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Bengaluru">Bengaluru</option>
+        </select><br>
+
+        <label for="relocation">Relocation:</label><br>
+        <select id="relocation" name="relocation">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+
+        <label for="wfo">Work From Office:</label><br>
+        <select id="wfo" name="wfo">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+
+        <label for="remark">Remark:</label><br>
+        <textarea id="remark" name="remark"></textarea><br>
+
+        <label for="tm_spoc">TM SPOC:</label><br>
+        <select id="tm_spoc" name="tm_spoc">
+            <!-- Populate this dropdown with Talent Manager names -->
+        </select><br>
+
+        <label for="tm_comment">TM Comment:</label><br>
+        <textarea id="tm_comment" name="tm_comment"></textarea><br>
+
+        <label for="sl_poc">SL POC:</label><br>
+        <select id="sl_poc" name="sl_poc">
+            <!-- Populate this dropdown with Hiring Manager names -->
+        </select><br>
+
+        <label for="profile_available">Profile Available:</label><br>
+        <select id="profile_available" name="profile_available">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+
+        <label for="profile_link">Profile Link:</label><br>
+        <input type="text" id="profile_link" name="profile_link"><br>
+
+        <label for="action_date">Action Date:</label><br>
+        <input type="date" id="action_date" name="action_date"><br>
+
+        <label for="closure_date">Closure Date:</label><br>
+        <input type="date" id="closure_date" name="closure_date"><br>
+
+        <label for="action_owner">Action Owner:</label><br>
+        <input type="text" id="action_owner" name="action_owner"><br>
+
+        <label for="action_details">Action Details:</label><br>
+        <textarea id="action_details" name="action_details"></textarea><br>
+            <button type="submit">Add Resource</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resource List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Hiring Manager</th>
+                <th>Demand Role</th>
+                <th>Career Role</th>
+                <th>Primary Skills</th>
+                <th>Service Line</th>
+                <th>Sub Service Line</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th>Industry Group</th>
+                <th>Experience Level</th>
+                <th>DOJ</th>
+                <th>Last Release Date</th>
+                <th>Last Release Account</th>
+                <th>Last Release Industry Group</th>
+                <th>Bench Start Date</th>
+                <th>Aging</th>
+                <th>Aging Cluster</th>
+                <th>Bench Classification</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Talent Category</th>
+                <th>Talent Type</th>
+                <th>Relocation</th>
+                <th>TM SPOC</th>
+                <th>SL POC</th>
+                <th>Profile Available</th>
+                <th>Action Owner</th>
+                <th>WFO</th>
+                <th>Assessment Score</th>
+                <th>Proficiency Status</th>
+                <th>Experience Level Fresher</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resource in resources %}
+            <tr>
+                <td>{{ resource.id }}</td>
+                <td>{{ resource.emp_id }}</td>
+                <td>{{ resource.employee_name }}</td>
+                <td>{{ get_employee_name(resource.hiring_manager_id)}}</td>
+                <td>{{ resource.demand_role }}</td>
+                <td>{{ resource.career_role }}</td>
+                <td>{{ resource.primary_skills }}</td>
+                <td>{{ resource.service_line }}</td>
+                <td>{{ resource.sub_service_line }}</td>
+                <td>{{ resource.region }}</td>
+                <td>{{ resource.country }}</td>
+                <td>{{ resource.industry_group }}</td>
+                {% if resource.secondary_info %}
+                <td>{{ resource.secondary_info.experience_level }}</td>
+                <td>{{ resource.secondary_info.doj }}</td>
+                <td>{{ resource.secondary_info.last_release_date }}</td>
+                <td>{{ resource.secondary_info.last_release_account }}</td>
+                <td>{{ resource.secondary_info.last_release_industry_group }}</td>
+                <td>{{ resource.secondary_info.bench_start_date }}</td>
+                <td>{{ resource.secondary_info.aging }}</td>
+                <td>{{ resource.secondary_info.aging_cluster }}</td>
+                <td>{{ resource.secondary_info.bench_classification }}</td>
+                <td>{{ resource.secondary_info.category }}</td>
+                <td>{{ resource.secondary_info.sub_category }}</td>
+                <td>{{ resource.secondary_info.talent_category }}</td>
+                <td>{{ resource.secondary_info.talent_type }}</td>
+                <td>{{ resource.secondary_info.relocation }}</td>
+                <td>{{ get_employee_name(resource.hiring_manager_id) }}</td>
+                <td>{{ get_employee_name(resource.hiring_manager_id) }}</td>
+                <td>{{ resource.secondary_info.profile_available }}</td>
+                <td>{{ resource.secondary_info.action_owner }}</td>
+                <td>{{ resource.secondary_info.wfo }}</td>
+                <td>{{ resource.secondary_info.assessment_score }}</td>
+                <td>{{ resource.secondary_info.proficiency_status }}</td>
+                <td>{{ resource.secondary_info.experience_level_fresher }}</td>
+                {% else %}
+                <td colspan="18">No secondary info available</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resource List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>EMP ID</th>
+                <th>Employee Name</th>
+                <th>Hiring Manager</th>
+                <th>Demand Role</th>
+                <th>Career Role</th>
+                <th>Primary Skills</th>
+                <th>Detail Skill</th>
+                <th>Trained Skill</th>
+                <th>Years of Experience</th>
+                <th>Employee Location</th>
+                <th>Service Line</th>
+                <th>Sub Service Line</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th>Industry Group</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resource in resources %}
+            <tr>
+                <td>{{ resource.id }}</td>
+                <td>{{ resource.emp_id }}</td>
+                <td>{{ resource.employee_name }}</td>
+                <td>{{ get_employee_name(resource.hiring_manager_id) }}</td>
+                <td>{{ resource.demand_role }}</td>
+                <td>{{ resource.career_role }}</td>
+                <td>{{ resource.primary_skills }}</td>
+                <td>{{ resource.detail_skill}}</td>
+                <td>{{ resource.trained_skill }}</td>
+                <td>{{ resource.Years_of_experience }}</td>
+                <td>{{ resource.employee_location }}</td>
+                <td>{{ resource.service_line }}</td>
+                <td>{{ resource.sub_service_line }}</td>
+                <td>{{ resource.region }}</td>
+                <td>{{ resource.country }}</td>
+                <td>{{ resource.industry_group }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources Managed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        select {
+            padding: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #cccccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f9;
+        }
+        .edit-btn {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn {
+            padding: 5px 10px;
+            background-color:red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resources Managed {{get_employee_name(manager_id)}}</h1>
+
+        <form method="GET" action="{{ url_for('resources_by_manager', manager_id=manager_id) }}">
+            <label for="category">Filter by Category:</label>
+            <select name="category" id="category" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>
+                {% endfor %}
+            </select>
+            <label for="aging_cluster">Filter by Aging Cluster:</label>
+            <select name="aging_cluster" id="aging_cluster" onchange="this.form.submit()">
+                <option value="">All Aging Clusters</option>
+                {% for cluster in aging_clusters %}
+                <option value="{{ cluster }}" {% if selected_aging_cluster == cluster %}selected{% endif %}>{{ cluster }}</option>
+                {% endfor %}
+            </select><br>
+            <label for="employee_name">Filter by Resource Name:</label>
+            <select name="employee_name" id="employee_name" onchange="this.form.submit()">
+                <option value="">All Resource Names</option>
+                {% for employee_name in resource_names %}
+                <option value="{{ employee_name }}" {% if selected_employee_name == name %}selected{% endif %}>{{ employee_name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+        {% for resource in resources %}
+        {% if selected_employee_name %}
+        <a href="{{ url_for('update_resource', id=resource.id) }}" class="edit-btn">Edit</a>
+        <a href="{{ url_for('delete_resource', id=resource.id) }}" class="delete-btn">Delete</a>
+
+
+        {% endif %}
+        <table>
+            <tr>
+                <th colspan="2">Resource Details</th>
+            </tr>
+            <tr>
+                <td>Resource ID</td>
+                <td>{{ resource.id }}</td>
+            </tr>
+            <tr>
+                <td>EMP ID</td>
+                <td>{{ resource.emp_id }}</td>
+            </tr>
+            <tr>
+                <td>Employee Name</td>
+                <td>{{ resource.employee_name }}</td>
+            </tr>
+            <tr>
+                <td>Demand Role</td>
+                <td>{{ resource.demand_role }}</td>
+            </tr>
+            <tr>
+                <td>Career Role</td>
+                <td>{{ resource.career_role }}</td>
+            </tr>
+            <tr>
+                <td>Primary Skills</td>
+                <td>{{ resource.primary_skills }}</td>
+            </tr>
+            <tr>
+                <td>Service Line</td>
+                <td>{{ resource.service_line }}</td>
+            </tr>
+            <tr>
+                <td>Sub Service Line</td>
+                <td>{{ resource.sub_service_line }}</td>
+            </tr>
+            <tr>
+                <td>Region</td>
+                <td>{{ resource.region }}</td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td>{{ resource.country }}</td>
+            </tr>
+            <tr>
+                <td>Industry Group</td>
+                <td>{{ resource.industry_group }}</td>
+            </tr>
+
+            {% set data = secondary_infos.get(resource.emp_id) %}
+            {% if data %}
+            <tr>
+                <th colspan="2">Secondary Info</th>
+            </tr>
+            <tr>
+                <td>Experience Level</td>
+                <td>{{ data.experience_level }}</td>
+            </tr>
+            <tr>
+                <td>Date of Joining</td>
+                <td>{{ data.doj }}</td>
+            </tr>
+            <tr>
+                <td>Last Release Date</td>
+                <td>{{ data.last_release_date }}</td>
+            </tr>
+            <tr>
+                <td>Last Release Account</td>
+                <td>{{ data.last_release_account }}</td>
+            </tr>
+            <tr>
+                <td>Last Release Industry Group</td>
+                <td>{{ data.last_release_industry_group }}</td>
+            </tr>
+            <tr>
+                <td>Bench Start Date</td>
+                <td>{{ data.bench_start_date }}</td>
+            </tr>
+            <tr>
+                <td>Aging</td>
+                <td>{{ data.aging }}</td>
+            </tr>
+            <tr>
+                <td>Aging Cluster</td>
+                <td>{{ data.aging_cluster }}</td>
+            </tr>
+            <tr>
+                <td>Bench Classification</td>
+                <td>{{ data.bench_classification }}</td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>{{ data.category }}</td>
+            </tr>
+            <tr>
+                <td>Sub Category</td>
+                <td>{{ data.sub_category }}</td>
+            </tr>
+            <tr>
+                <td>Talent Category</td>
+                <td>{{ data.talent_category }}</td>
+            </tr>
+            <tr>
+                <td>Talent Type</td>
+                <td>{{ data.talent_type }}</td>
+            </tr>
+            <tr>
+                <td>Relocation</td>
+                <td>{{ data.relocation }}</td>
+            </tr>
+            <tr>
+                <td>TM SPOC</td>
+                <td>{{ get_employee_name(data.tm_spoc_id) }}</td>
+            </tr>
+            <tr>
+                <td>SL POC</td>
+                <td>{{ get_employee_name(data.sl_poc_id) }}</td>
+            </tr>
+            <tr>
+                <td>Profile Available</td>
+                <td>{{ data.profile_available }}</td>
+            </tr>
+            <tr>
+                <td>Action Owner</td>
+                <td>{{ data.action_owner }}</td>
+            </tr>
+            <tr>
+                <td>WFO</td>
+                <td>{{ data.wfo }}</td>
+            </tr>
+            <tr>
+                <td>Assessment Score</td>
+                <td>{{ data.assessment_score }}</td>
+            </tr>
+            <tr>
+                <td>Proficiency Status</td>
+                <td>{{ data.proficiency_status }}</td>
+            </tr>
+            <tr>
+                <td>Experience Level Fresher</td>
+                <td>{{ data.experience_level_fresher }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No secondary info available</td>
+            </tr>
+            {% endif %}
+        </table>
+        
+        {% endfor %}
+    </div>
+</body>
+</html>

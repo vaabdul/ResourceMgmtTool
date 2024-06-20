@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Resource</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555555;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 16px;
+            padding-right: 30px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .form-group label,
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: calc(50% - 10px);
+            margin-bottom: 8px;
+        }
+        @media (max-width: 768px) {
+            .form-group label,
+            .form-group select,
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>update Resource</h1>
+        <form id="resourceForm" method="POST" action="/update_resource/{{ resource.id }}">
+        
+            <div class="form-group">
+                <label for="emp_id">EMP ID:</label>
+                <input type="text" id="emp_id" name="emp_id" value="{{ resource.emp_id }}" required>
+            </div>
+            <div class="form-group">
+                <label for="employee_name">Employee Name:</label>
+                <input type="text" id="employee_name" name="employee_name" value="{{ resource.employee_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email_id">Email ID:</label>
+                <input type="email" id="email_id" name="email_id" value="{{ resource.email_id }}" required>
+            </div>
+            <div class="form-group">
+                <label for="hiring_manager_id">Hiring Manager:</label>
+                <select id="hiring_manager_id" name="hiring_manager_id" required>
+                    <option value="">Select a hiring manager</option>
+                    {% for manager in managers %}
+                        <option value="{{ manager.id }}" {% if manager.id == resource.hiring_manager_id %} selected {% endif %}>{{ manager.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="demand_role">Demand Role:</label>
+                <select id="demand_role" name="demand_role" required>
+                    <option value="{{resource.demand_role}}">Select a demand role</option>
+                    <option value="QA Engineer" {% if resource.demand_role == 'QA Engineer' %} selected {% endif %}>QA Engineer</option>
+                    <option value="SDET - Lead" {% if resource.demand_role == 'SDET - Lead' %} selected {% endif %}>SDET - Lead</option>
+                    <option value="Product Development" {% if resource.demand_role == 'Product Development' %} selected {% endif %}>Product Development</option>
+                    <option value="Associate Project Manager" {% if resource.demand_role == 'Associate Project Manager' %} selected {% endif %}>Associate Project Manager</option>
+                    <option value="Azure Data Analyst" {% if resource.demand_role == 'Azure Data Analyst' %} selected {% endif %}>Azure Data Analyst</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="career_role">Career Role:</label>
+                <select id="career_role" name="career_role" required>
+                    <option value="{{resource.career_role}}">Select a career role</option>
+                    <option value="Admin Lead" {% if resource.career_role == 'Admin Lead' %} selected {% endif %}>Admin Lead</option>
+                    <option value="Admin Manager" {% if resource.career_role == 'Admin Manager' %} selected {% endif %}>Admin Manager</option>
+                    <option value="Analyst PMO" {% if resource.career_role == 'Analyst PMO' %} selected {% endif %}>Analyst PMO</option>
+                    <option value="Architect" {% if resource.career_role == 'Architect' %} selected {% endif %}>Architect</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="primary_skills">Primary Skills:</label>
+                <select id="primary_skills" name="primary_skills" required>
+                    <option value="{{resource.primary_skills}}">Select primary skills</option>
+                    <option value="open shift" {% if resource.primary_skills == 'open shift' %} selected {% endif %}>open shift</option>
+                    <option value=".net" {% if resource.primary_skills == '.net' %} selected {% endif %}>.net</option>
+                    <option value="android" {% if resource.primary_skills == 'android' %} selected {% endif %}>android</option>
+                    <option value="angular" {% if resource.primary_skills == 'angular' %} selected {% endif %}>angular</option>
+                    <option value="ansible" {% if resource.primary_skills == 'ansible' %} selected {% endif %}>ansible</option>
+                    <option value="API" {% if resource.primary_skills == 'API' %} selected {% endif %}>API</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="detail_skill">Detail Skill:</label>
+                <input type="text" id="detail_skill" name="detail_skill" value="{{ resource.detail_skill }}">
+            </div>
+            <div class="form-group">
+                <label for="trained_skill">Trained Skill:</label>
+                <input type="text" id="trained_skill" name="trained_skill" value="{{ resource.trained_skill }}">
+            </div>
+            <div class="form-group">
+                {{resource.years_of_experience}}
+                <label for="years_of_experience">Years of Experience:</label>
+                <input type="number" id="years_of_experience" name="years_of_experience" value="{{ resource.years_of_experience }}">
+            </div>
+            <div class="form-group">
+                <label for="employee_location">Employee Location:</label>
+                <select id="employee_location" name="employee_location">
+                    <option value="{{resource.employee_location}}">Select employee location</option>
+                    <option value="Hyderabad" {% if resource.employee_location == 'Hyderabad' %} selected {% endif %}>Hyderabad</option>
+                    <option value="Bengaluru" {% if resource.employee_location == 'Bengaluru' %} selected {% endif %}>Bengaluru</option>
+                </select>
+            </div>
+        <div class="form-group">
+            <label for="service_line">Service Line:</label>
+            <select id="service_line" name="service_line" required>
+                <option value="{{resource.service_line}}">Select service line</option>
+                <option value="Customer Experience">Customer Experience</option>
+                <option value="Digital And Product Engineering">Digital And Product Engineering</option>
+                <option value="Data & Analytics">Data & Analytics</option>
+                <option value="Cloud & Infrastructure">Cloud & Infrastructure</option>
+            </select>
+            
+        </div>
+        <div class="form-group">
+            <label for="sub_service_line">sub_service_line:</label>
+            <select id="sub_service_line" name="sub_service_line" required>
+                <option value="{{resource.sub_service_line}}">Select sub service line</option>
+                <option value="CX design and strategy">CX design and strategy</option>
+                <option value="Digital Marketing and Automation">Digital Marketing and Automation</option>
+                <option value="UI/UX">UI/UX</option>
+                <option value="Digital Commerce">Digital Commerce</option>
+                <option value="CRM & Loyalty">CRM & Loyalty</option>
+                <option value="Application Development">Application Development</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="region">region:</label>
+            <select id="region" name="region" required>
+                <option value="{{resource.region}}">Select region</option>
+                <option value="Europe">Europe</option>
+                <option value="US">US</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="country">country:</label>
+            <select id="country" name="country" required>
+                <option value="{{resource.country}}">Select country</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Germany">Germany</option>
+                <option value="India">India</option>
+                <option value="Romania">Romania</option>
+                <option value="France">France</option>
+                <option value="Italy">Italy</option>
+                <option value="USA">USA</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+            </select>
+    </div>
+    <div class="form-group">
+        <label for="industry_group">industry_group:</label>
+            <select id="industry_group" name="industry_group" required>
+                <option value="{{resource.industry_group}}">Select industry group</option>
+                <option value="Banking, Financial Services and Insurance">Banking, Financial Services and Insurance</option>
+                <option value="Healthcare and Life Science">Healthcare and Life Science</option>
+                <option value="Consumer and Retail">Consumer and Retail</option>
+                <option value="Technology, Media and Telecom">Technology, Media and Telecom</option>
+                <option value="Automotive, Aerospace, Defence, Manufacturing">Automotive, Aerospace, Defence, Manufacturing</option>
+                <option value="Public">Public</option>
+                <option value="Cella">Cella</option>
+            </select>
+        </div>
+        <button type="submit">update Resource</button>
+
+
+   
+
+
+
+

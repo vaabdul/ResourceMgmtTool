@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Resources</title>
+    <title>Resource List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f8f9fa;
+            color: #343a40;
         }
         h1 {
             color: #343a40;
+            text-align: center;
+            margin-bottom: 20px;
         }
         table {
             width: 100%;
@@ -20,11 +23,13 @@
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
         th, td {
             padding: 12px;
             border: 1px solid #dee2e6;
             text-align: left;
+            white-space: nowrap;
         }
         th {
             background-color: #007bff;
@@ -33,53 +38,116 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        .no-secondary-info {
+            text-align: center;
+            color: #999999;
+            font-style: italic;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
     </style>
 </head>
 <body>
-    <h1>Resource List</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>EMP ID</th>
-                <th>Employee Name</th>
-                <th>Hiring Manager</th>
-                <th>Demand Role</th>
-                <th>Career Role</th>
-                <th>Primary Skills</th>
-                <th>Detail Skill</th>
-                <th>Trained Skill</th>
-                <th>Years of Experience</th>
-                <th>Employee Location</th>
-                <th>Service Line</th>
-                <th>Sub Service Line</th>
-                <th>Region</th>
-                <th>Country</th>
-                <th>Industry Group</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for resource in resources %}
-            <tr>
-                <td>{{ resource.id }}</td>
-                <td>{{ resource.emp_id }}</td>
-                <td>{{ resource.employee_name }}</td>
-                <td>{{ get_employee_name(resource.hiring_manager_id) }}</td>
-                <td>{{ resource.demand_role }}</td>
-                <td>{{ resource.career_role }}</td>
-                <td>{{ resource.primary_skills }}</td>
-                <td>{{ resource.detail_skill}}</td>
-                <td>{{ resource.trained_skill }}</td>
-                <td>{{ resource.Years_of_experience }}</td>
-                <td>{{ resource.employee_location }}</td>
-                <td>{{ resource.service_line }}</td>
-                <td>{{ resource.sub_service_line }}</td>
-                <td>{{ resource.region }}</td>
-                <td>{{ resource.country }}</td>
-                <td>{{ resource.industry_group }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Resource List</h1>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr class="sticky-header">
+                        <th>ID</th>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Hiring Manager</th>
+                        <th>Demand Role</th>
+                        <th>Career Role</th>
+                        <th>Primary Skills</th>
+                        <th>Service Line</th>
+                        <th>Sub Service Line</th>
+                        <th>Region</th>
+                        <th>Country</th>
+                        <th>Industry Group</th>
+                        <th>Experience Level</th>
+                        <th>DOJ</th>
+                        <th>Last Release Date</th>
+                        <th>Last Release Account</th>
+                        <th>Last Release Industry Group</th>
+                        <th>Bench Start Date</th>
+                        <th>Aging</th>
+                        <th>Aging Cluster</th>
+                        <th>Bench Classification</th>
+                        <th>Category</th>
+                        <th>Sub Category</th>
+                        <th>Talent Category</th>
+                        <th>Talent Type</th>
+                        <th>Relocation</th>
+                        <th>TM SPOC</th>
+                        <th>SL POC</th>
+                        <th>Profile Available</th>
+                        <th>Action Owner</th>
+                        <th>WFO</th>
+                        <th>Assessment Score</th>
+                        <th>Proficiency Status</th>
+                        <th>Experience Level Fresher</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resource in resources %}
+                    <tr>
+                        <td>{{ resource.id }}</td>
+                        <td>{{ resource.emp_id }}</td>
+                        <td>{{ resource.employee_name }}</td>
+                        <td>{{ get_employee_name(resource.hiring_manager_id) }}</td>
+                        <td>{{ resource.demand_role }}</td>
+                        <td>{{ resource.career_role }}</td>
+                        <td>{{ resource.primary_skills }}</td>
+                        <td>{{ resource.service_line }}</td>
+                        <td>{{ resource.sub_service_line }}</td>
+                        <td>{{ resource.region }}</td>
+                        <td>{{ resource.country }}</td>
+                        <td>{{ resource.industry_group }}</td>
+                        {% if resource.secondary_info %}
+                            <td>{{ resource.secondary_info.experience_level }}</td>
+                            <td>{{ resource.secondary_info.doj }}</td>
+                            <td>{{ resource.secondary_info.last_release_date }}</td>
+                            <td>{{ resource.secondary_info.last_release_account }}</td>
+                            <td>{{ resource.secondary_info.last_release_industry_group }}</td>
+                            <td>{{ resource.secondary_info.bench_start_date }}</td>
+                            <td>{{ resource.secondary_info.aging }}</td>
+                            <td>{{ resource.secondary_info.aging_cluster }}</td>
+                            <td>{{ resource.secondary_info.bench_classification }}</td>
+                            <td>{{ resource.secondary_info.category }}</td>
+                            <td>{{ resource.secondary_info.sub_category }}</td>
+                            <td>{{ resource.secondary_info.talent_category }}</td>
+                            <td>{{ resource.secondary_info.talent_type }}</td>
+                            <td>{{ resource.secondary_info.relocation }}</td>
+                            <td>{{ get_employee_name(resource.secondary_info.tm_spoc_id) }}</td>
+                            <td>{{ get_employee_name(resource.secondary_info.sl_poc_id) }}</td>
+                            <td>{{ resource.secondary_info.profile_available }}</td>
+                            <td>{{ resource.secondary_info.action_owner }}</td>
+                            <td>{{ resource.secondary_info.wfo }}</td>
+                            <td>{{ resource.secondary_info.assessment_score }}</td>
+                            <td>{{ resource.secondary_info.proficiency_status }}</td>
+                            <td>{{ resource.secondary_info.experience_level_fresher }}</td>
+                        </tr>
+                        {% else %}
+                        <td colspan="33" class="no-secondary-info">No secondary info available</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                 
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

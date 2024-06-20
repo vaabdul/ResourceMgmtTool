@@ -1,0 +1,24 @@
+{% macro show_links() %}
+
+
+    <ul class="nav nav-tabs nav-fill" style="background-color:rgb(0, 75, 93);">
+        
+        {% if not user %}
+        <li class="nav-item">
+          <a class="nav-link" style="color:whitesmoke;" href="{{url_for('login')}}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color:whitesmoke;" href="{{url_for('register')}}">Register</a>
+        </li>
+        {% endif %}
+
+        {% if user and user ['user'] == 1 %}
+        <li class="nav-item">
+            <a class="nav-link" style="color:whitesmoke;" href="{{url_for('view_resources')}}">Dashboard</a>
+          </li>
+        
+        
+        {% endif %}
+      </ul>
+
+        {% endmacro %}

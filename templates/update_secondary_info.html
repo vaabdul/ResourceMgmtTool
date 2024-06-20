@@ -49,12 +49,13 @@
 </head>
 <body>
     <h1>Add Resource Secondary Info</h1>
-    <form method="POST" action="/add_secondary_info" enctype="multipart/form-data">
+
+    <form method="POST" action="/update_secondary_info/{{secondary_info.id}}" enctype="multipart/form-data">
         <label for="resource_id">resource_id</label>
-        <input type="number" id="resource_id" placeholder={{resource_id}} name="resource_id" value="{{ resource_id }}" readonly>
+        <input type="number" id="id" placeholder={{resource_id}} name="resource_id" value="{{ secondary_info.id }}" readonly>
 
         <label for="experience_level">Experience Level</label>
-        <select id="experience_level" name="experience_level">
+        <select id="experience_level" name="experience_level" value = "{{secondary_info.experience_level}}">
             <option value="01-03">01-03</option>
             <option value="03-06">03-06</option>
             <option value="06-09">06-09</option>
@@ -62,10 +63,10 @@
         </select>
         
         <label for="doj">Date of Joining (DOJ)</label>
-        <input type="date" id="doj" name="doj" required>
+        <input type="date" id="doj" name="doj"  value = "{{secondary_info.doj}}"required>
 
         <label for="last_release_date">Last Release Date</label>
-        <input type="date" id="last_release_date" name="last_release_date" required>
+        <input type="date" id="last_release_date" name="last_release_date" value = "{{secondary_info.last_release_date}}"required>
 
         <label for="last_release_account">Last Release Account</label>
         <select id="last_release_account" name="last_release_account">
@@ -131,8 +132,20 @@
             <option value="Public">Public</option>
             <option value="Cella">Cella</option>
         </select>
+
         <label for="bench_start_date">Bench Start Date</label>
-        <input type="date" id="bench_start_date" name="bench_start_date" required>
+        <input type="date" id="bench_start_date" name="bench_start_date" value = "{{secondary_info.bench_start_date}}" required>
+
+        <label for="aging">Aging (Days)</label>
+        <input type="number" id="aging" name="aging" value = "{{secondary_info.aging}}" required>
+
+        <label for="aging_cluster">Aging Cluster</label>
+        <select id="aging_cluster" name="aging_cluster">
+            <option value="1-30">1-30</option>
+            <option value="30-60">30-60</option>
+            <option value="60-90">60-90</option>
+            <option value="90 and above">90 and above</option>
+        </select>
 
         <label for="bench_classification">Bench Classification</label>
         <select id="bench_classification" name="bench_classification">
@@ -265,10 +278,12 @@
             <option value="19+">19+</option>
         </select>
         <div>
-            <label for="resume">Upload Resume:</label>
-        <input type="file" name="resume" id="resume" required>
+            <form method="POST" action="{{ url_for('upload_resume', emp_id= secondary_info.id) }}" enctype="multipart/form-data">
+                <label for="resume">Upload Resume:</label>
+                <input type="file" name="resume" id="resume" required>
+                <button type="submit">Upload</button>
+            </form>
         </div>
-        
         <button type="submit">Add Secondary Info</button>
     </form>
 </body>

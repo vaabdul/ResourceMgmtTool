@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        .detail-group {
+            margin-bottom: 20px;
+        }
+        .detail-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555555;
+            font-weight: bold;
+        }
+        .detail-group .detail {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+        .full-width {
+            width: 100%;
+        }
+        .split-width {
+            width: calc(50% - 10px);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resource Detail</h1>
+        <div class="detail-group">
+            <div>
+                <label>Resource ID:</label>
+                <div class="detail">{{ resource.id }}</div>
+            </div>
+            <div>
+                <label>EMP ID:</label>
+                <div class="detail">{{ resource.emp_id }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Employee Name:</label>
+                <div class="detail">{{ resource.employee_name }}</div>
+            </div>
+            <div>
+                <label>Hiring Manager:</label>
+                <div class="detail">{{ get_employee_name(resource.hiring_manager_id) }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Demand Role:</label>
+                <div class="detail">{{ resource.demand_role }}</div>
+            </div>
+            <div>
+                <label>Career Role:</label>
+                <div class="detail">{{ resource.career_role }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Primary Skills:</label>
+                <div class="detail">{{ resource.primary_skills }}</div>
+            </div>
+            <div>
+                <label>Service Line:</label>
+                <div class="detail">{{ resource.service_line }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Sub Service Line:</label>
+                <div class="detail">{{ resource.sub_service_line }}</div>
+            </div>
+            <div>
+                <label>Region:</label>
+                <div class="detail">{{ resource.region }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Country:</label>
+                <div class="detail">{{ resource.country }}</div>
+            </div>
+            <div>
+                <label>Industry Group:</label>
+                <div class="detail">{{ resource.industry_group }}</div>
+            </div>
+        </div>
+
+        {% if data %}
+        <div class="detail-group">
+            <div>
+                <label>Experience Level:</label>
+                <div class="detail">{{ data.experience_level }}</div>
+            </div>
+            <div>
+                <label>Date of Joining:</label>
+                <div class="detail">{{ data.doj }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Last Release Date:</label>
+                <div class="detail">{{ data.last_release_date }}</div>
+            </div>
+            <div>
+                <label>Last Release Account:</label>
+                <div class="detail">{{ data.last_release_account }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Last Release Industry Group:</label>
+                <div class="detail">{{ data.last_release_industry_group }}</div>
+            </div>
+            <div>
+                <label>Bench Start Date:</label>
+                <div class="detail">{{ data.bench_start_date }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Aging:</label>
+                <div class="detail">{{ data.aging }}</div>
+            </div>
+            <div>
+                <label>Aging Cluster:</label>
+                <div class="detail">{{ data.aging_cluster }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Bench Classification:</label>
+                <div class="detail">{{ data.bench_classification }}</div>
+            </div>
+            <div>
+                <label>Category:</label>
+                <div class="detail">{{ data.category }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Sub Category:</label>
+                <div class="detail">{{ data.sub_category }}</div>
+            </div>
+            <div>
+                <label>Talent Category:</label>
+                <div class="detail">{{ data.talent_category }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Talent Type:</label>
+                <div class="detail">{{ data.talent_type }}</div>
+            </div>
+            <div>
+                <label>Relocation:</label>
+                <div class="detail">{{ data.relocation }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>TM SPOC:</label>
+                <div class="detail">{{ get_employee_name(data.tm_spoc_id) }}</div>
+            </div>
+            <div>
+                <label>SL POC:</label>
+                <div class="detail">{{ get_employee_name(data.sl_poc_id) }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Profile Available:</label>
+                <div class="detail">{{ data.profile_available }}</div>
+            </div>
+            <div>
+                <label>Action Owner:</label>
+                <div class="detail">{{ data.action_owner }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>WFO:</label>
+                <div class="detail">{{ data.wfo }}</div>
+            </div>
+            <div>
+                <label>Assessment Score:</label>
+                <div class="detail">{{ data.assessment_score }}</div>
+            </div>
+        </div>
+        <div class="detail-group">
+            <div>
+                <label>Proficiency Status:</label>
+                <div class="detail">{{ data.proficiency_status }}</div>
+            </div>
+            <div>
+                <label>Experience Level Fresher:</label>
+                <div class="detail">{{ data.experience_level_fresher }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="detail-group">
+            <div class="detail no-data" style="width: 100%;">No secondary info available</div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

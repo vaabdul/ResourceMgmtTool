@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Attachment</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .resume-item {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Attachment</h1>
+        
+        <!-- Upload Form -->
+        <h2>Upload Resume</h2>
+        <form method="post" enctype="multipart/form-data" action="{{ url_for('upload_resume') }}">
+            <input type="file" name="file">
+            <input type="submit" value="Upload">
+        </form>
+        
+        <!-- List of Uploaded Resumes -->
+        <h2>Uploaded Resumes</h2>
+        {% if resumes %}
+            <ul>
+                {% for resume in resumes %}
+                    <li class="resume-item"><a href="{{ url_for('download_resume', filename=resume) }}">{{ resume }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No resumes uploaded yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
