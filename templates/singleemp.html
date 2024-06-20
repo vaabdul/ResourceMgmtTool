@@ -30,9 +30,7 @@
                 <li class="nav-item">
                     <a class="nav-link" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('view_resources') }}">View All Employees</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="background-color:rgb(0, 75, 93); color:whitesmoke;" href="{{ url_for('add_resource') }}">Add New Employee</a>
-                </li>
+    
             </ul>
             <div class="centercontent">
                 <div class="card">
@@ -182,8 +180,12 @@
                             <div class="fw-bold">Experience Level Fresher : {{ data.experience_level_fresher }}</div>
                         </div>
                     </li>
+                        {% if data.resume_path %}
                            {{data.resume_path}}
                     <a href="{{ url_for('download_resume', filename=data.resume_path) }}" class="btn btn-sm" style="background-color:rgb(0, 75, 93); color:whitesmoke;">Download Resume</a>
+                    {% else %}
+                    {{"NO RESUME AVAILABLE"}}
+                    {% endif%}
                     {% else %}
         <div class="detail-group">
             <div class="detail no-data" style="width: 100%;">No secondary info available</div>
